@@ -53,3 +53,6 @@
   border-radius: 20px;
   color: var(--papaya-whip);
 }
+.app-content {
+  padding: 5px;
+}

@@ -31,11 +31,38 @@ export default function Player() {
         <div className="player-data">
           <h3>Player Data:</h3>
           <pre>
-            <img src={data?.avatars?.full} /> - Name - {data?.name} - SteamID :{" "}
+            <img src={data?.avatars?.full} />
+            {"\n"}- Name: {data?.name} {"\n"}- SteamID :{" "}
             <a href={`https://steamcommunity.com/profiles/${data?.steam_id}`}>
               Steam profile
-            </a>{" "}
-            -
+            </a>
+            {"\n"}- Qm 1v1 rank: {data?.modes?.qm_1v1?.rank} {"\n"}- Qm 1v1
+            rating: {data?.modes?.qm_1v1?.rating}
+            {"\n"}- Civilization: {""}
+            {data?.modes?.qm_1v1?.civilizations?.map(
+              (civ: {
+                civilization: string;
+                pick_rate: string;
+                win_rate: string;
+              }) => {
+                return (
+                  civ?.civilization +
+                  "\n- Pick rate: " +
+                  civ?.pick_rate +
+                  "%" +
+                  "\n- Win rate: " +
+                  civ?.win_rate +
+                  "%"
+                );
+              }
+            )}{" "}
+            {"\n"}- Country: {data?.country} {"\n"}- Games Played:{" "}
+            {data?.modes?.qm_1v1?.games_count} {"\n"}- Wins:{" "}
+            {data?.modes?.qm_1v1?.wins_count} {"\n"}- Win Rate:{" "}
+            {data?.modes?.qm_1v1?.win_rate}%{"\n"}- Last Online:{" "}
+            {data?.modes?.qm_1v1?.last_game_at
+              .replace("T", " Time: ")
+              .replace("Z", "")}
           </pre>
         </div>
       ) : (
