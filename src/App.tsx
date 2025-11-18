@@ -71,23 +71,29 @@ function App() {
           <h3>
             {data?.total_count} Search Results, showing {data?.count}:
           </h3>
-          <ul>
+          <ul className="players-list">
             {data?.players?.map((player: any) => (
               <li className="player" key={player.profile_id}>
-                <Link
-                  onClick={() => onClickId(player.profile_id)}
-                  to={`/player/${player.profile_id}`}
-                >
-                  <img
-                    className="player-avatar"
-                    src={player.avatars?.small ?? null}
-                    alt={`${player.name} avatar`}
-                  />
-                  - {player.name} - Country: {player.country} - Qm 1v1 Rank:{" "}
-                  {player.leaderboards?.qm_1v1?.rank ?? "N/A"} - Qm 1v1 Rating:{" "}
-                  {player.leaderboards?.qm_1v1?.rating ?? "N/A"} - Click to see
-                  more info of this player
-                </Link>
+                <img
+                  className="player-avatar"
+                  src={player.avatars?.full ?? null}
+                  alt={`${player.name} avatar`}
+                />
+                <p>
+                  <b>Name:</b> {player.name} - <br></br>
+                  <b>Country:</b> {player.country} <br></br> Qm
+                  <b>1v1 Rank:</b> {player.leaderboards?.qm_1v1?.rank ?? "N/A"}{" "}
+                  <br></br>
+                  <b>Qm 1v1 Rating:</b>{" "}
+                  {player.leaderboards?.qm_1v1?.rating ?? "N/A"}
+                  <Link
+                    onClick={() => onClickId(player.profile_id)}
+                    to={`/player/${player.profile_id}`}
+                  >
+                    {" "}
+                    <br></br>- Click to see more info
+                  </Link>
+                </p>
               </li>
             ))}
           </ul>
