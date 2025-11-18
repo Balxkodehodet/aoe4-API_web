@@ -11,6 +11,19 @@
   --deep-space-blue: #003049ff;
   --steel-blue: #669bbcff;
 }
+.player-data pre img {
+  border-radius: 10px;
+  margin-right: 10px;
+  vertical-align: middle;
+}
+.player-data pre a {
+  list-style-type: none;
+  color: var(--papaya-whip);
+}
+.player-data pre a:hover {
+  list-style-type: none;
+  color: var(--brick-red);
+}
 .nav-links {
   list-style-type: none;
   padding: 0;

@@ -13,17 +13,24 @@ function App() {
   }
   const { data, setData, error, setError, id, setId } = ctx;
   const [searchName, setSearchName] = useState<string>("all");
-
-  let url = `https://aoe4world.com/api/v0/players/search?query=${searchName}`;
+  const [page, setPage] = useState<number>(1);
+  let url = `https://aoe4world.com/api/v0/players/search?query=${searchName}&page=${page}`;
   useEffect(() => {
     const fetchData = async () => {
-      try {
-        const response = await fetch(url);
-        const json = await response.json();
-        setData(json);
-      } catch (err) {
-        setError("Error fetching data");
-        console.error(err);
+      let cachedData = `players_page_query_${searchName}`;
+      let cachedDataStorage = localStorage.getItem(cachedData);
+      if (cachedDataStorage) {
+        setData(JSON.parse(cachedDataStorage));
+      } else {
+        try {
+          const response = await fetch(url);
+          const json = await response.json();
+          setData(json);
+          localStorage.setItem(cachedData, JSON.stringify(json));
+        } catch (err) {
+          setError("Error fetching data");
+          console.error(err);
+        }
       }
     };
     fetchData();
@@ -62,16 +69,17 @@ function App() {
       {data ? (
         <div>
           <h3>
-            {data.total_count} Search Results, showing {data.count}:
+            {data?.total_count} Search Results, showing {data?.count}:
           </h3>
           <ul>
-            {data.players.map((player: any) => (
+            {data?.players?.map((player: any) => (
               <li className="player" key={player.profile_id}>
                 <Link
                   onClick={() => onClickId(player.profile_id)}
                   to={`/player/${player.profile_id}`}
                 >
                   <img
+                    className="player-avatar"
                     src={player.avatars?.small ?? null}
                     alt={`${player.name} avatar`}
                   />
