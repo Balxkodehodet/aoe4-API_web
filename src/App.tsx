@@ -13,7 +13,7 @@ function App() {
   }
   const { data, setData, error, setError, setId } = ctx;
   const [searchName, setSearchName] = useState<string>("all");
-  const [page, setPage] = useState<number>(1);
+  const [page] = useState<number>(1);
   let url = `https://aoe4world.com/api/v0/players/search?query=${searchName}&page=${page}`;
   useEffect(() => {
     const fetchData = async () => {

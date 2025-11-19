@@ -2,7 +2,7 @@
   "name": "aoe4-api_web",
   "private": true,
   "version": "0.0.0",
-  "homepage": "https://Balxkodehodet.github.io/aoe4-api_web",
+  "homepage": "https://balxkodehodet.github.io/aoe4-API_web/",
   "type": "module",
   "scripts": {
     "predeploy": "npm run build",

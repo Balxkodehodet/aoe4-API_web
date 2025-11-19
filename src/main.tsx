@@ -6,16 +6,19 @@ import Layout from "./Components/Layout.tsx";
 import { AppProvider } from "./Components/AppContext.tsx";
 import Player from "./Components/Player.tsx";
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <Layout />,
-    children: [
-      { index: true, element: <App /> },
-      { path: "player/:id", element: <Player /> },
-    ],
-  },
-]);
+const router = createBrowserRouter(
+  [
+    {
+      path: "/",
+      element: <Layout />,
+      children: [
+        { index: true, element: <App /> },
+        { path: "player/:id", element: <Player /> },
+      ],
+    },
+  ],
+  { basename: import.meta.env.BASE_URL } // viktig!
+);
 
 function Root() {
   return (
