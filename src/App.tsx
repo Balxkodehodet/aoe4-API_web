@@ -13,14 +13,18 @@ function App() {
   }
   const { data, setData, error, setError, setId } = ctx;
   const [searchName, setSearchName] = useState<string>("all");
-  const [page] = useState<number>(1);
-  let url = `https://aoe4world.com/api/v0/players/search?query=${searchName}&page=${page}`;
+  const [page, setPage] = useState<number>(1);
+  const [loading, setLoading] = useState<boolean>(false);
+  let url = ``;
   useEffect(() => {
     const fetchData = async () => {
-      let cachedData = `players_page_query_${searchName}`;
+      url = `https://aoe4world.com/api/v0/players/search?query=${searchName}&page=${page}`;
+      let cachedData = `players_page_query_${searchName}_page_${page}`;
       let cachedDataStorage = localStorage.getItem(cachedData);
+      setLoading(true);
       if (cachedDataStorage) {
         setData(JSON.parse(cachedDataStorage));
+        setLoading(false);
       } else {
         try {
           const response = await fetch(url);
@@ -32,9 +36,10 @@ function App() {
           console.error(err);
         }
       }
+      setLoading(false);
     };
     fetchData();
-  }, [url]);
+  }, [url, page]);
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     // The data fetching is handled by useEffect when searchName changes
@@ -64,9 +69,33 @@ function App() {
           />
         </label>
         <button type="submit">Search</button>
+        {page && (
+          <>
+            <p>Page: {page}</p>{" "}
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                setPage(() => page - 1);
+              }}
+              type="button"
+            >
+              Previous Page
+            </button>
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                setPage(() => page + 1);
+              }}
+              type="button"
+            >
+              Next Page
+            </button>
+          </>
+        )}
       </form>
+      {loading && <p>Loading...</p>}
       {error && <p className="error">{error}</p>}
-      {data ? (
+      {data && (
         <div>
           <h3>
             {data?.total_count} Search Results, showing {data?.count}:
@@ -98,8 +127,6 @@ function App() {
             ))}
           </ul>
         </div>
-      ) : (
-        !error && <p>Loading...</p>
       )}
     </main>
   );
