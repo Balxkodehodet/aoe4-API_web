@@ -45,7 +45,7 @@ export default function LastTenGames() {
         {data &&
           data?.games?.map((game: any) => {
             return (
-              <p className="player10lastgames" key={game.game_id}>
+              <div className="player10lastgames" key={game.game_id}>
                 <h2>
                   Map: {game.map} <br></br>
                   <br></br>
@@ -91,7 +91,7 @@ export default function LastTenGames() {
                   {game?.teams[1][1]?.player?.name}
                 </Link>
                 <br></br> Result:{game?.teams[1][1]?.player?.result}
-              </p>
+              </div>
             );
           })}
       </div>
