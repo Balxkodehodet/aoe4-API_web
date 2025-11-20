@@ -41,6 +41,7 @@ export default function LastTenGames() {
       <h1>Last Ten Games Played:</h1>
       <div className="lastTenGamesParent">
         <br></br>
+        {error && <p>{error}</p>}
         {loading && <p>Loading...</p>}
         {data &&
           data?.games?.map((game: any) => {

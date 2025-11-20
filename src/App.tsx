@@ -11,8 +11,7 @@ function App() {
       "AppContext is undefined, make sure you are using AppProvider"
     );
   }
-  const { data, setData, error, setError, id, setId, loading, setLoading } =
-    ctx;
+  const { data, setData, error, setError, setId, loading, setLoading } = ctx;
   const [searchName, setSearchName] = useState<string>("all");
   const [page, setPage] = useState<number>(1);
   let url = ``;
@@ -39,9 +38,11 @@ function App() {
       setLoading(false);
     };
     fetchData();
-  }, [url, page]);
-  function handleSubmit(e: React.FormEvent) {
+  }, [url, page, searchName]);
+
+  function handleSubmit(e: React.FormEvent, searchName: string) {
     e.preventDefault();
+    setSearchName(searchName);
     // The data fetching is handled by useEffect when searchName changes
   }
   if (data) {
@@ -61,7 +62,10 @@ function App() {
     <main className="app-content">
       <h2>Welcome</h2>
       <p>This a website dedicated to Age of empires 4, players and stats.</p>
-      <form className="playerForm" onSubmit={handleSubmit}>
+      <form
+        className="playerForm"
+        onSubmit={(e) => handleSubmit(e, searchName)}
+      >
         <label>
           Search Player:
           <input
@@ -124,7 +128,7 @@ function App() {
                     to={`/player/${player.profile_id}`}
                   >
                     {" "}
-                    <br></br>- Click to see more info
+                    <br></br>Click to see more info
                   </Link>
                 </p>
               </li>

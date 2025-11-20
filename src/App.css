@@ -2,6 +2,14 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  font-family: "Macondo", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
+#root,
+body,
+html {
+  height: 100%;
 }
 /* Color palette: */
 :root {
@@ -58,6 +66,17 @@
   margin-bottom: 20px;
   margin-top: 20px;
 }
+.playerForm button {
+  padding: 10px;
+  border-radius: 10px;
+  background-color: var(--deep-space-blue);
+  color: var(--papaya-whip);
+  margin: 10px;
+}
+.playerForm button:hover {
+  background-color: var(--steel-blue);
+  cursor: pointer;
+}
 .lastTenGamesParent {
   display: flex;
   flex-direction: row;
@@ -105,8 +124,11 @@
   padding: 10px;
 }
 .player a {
-  color: var(--papaya-whip);
+  color: var(--steel-blue);
   text-decoration: none;
+}
+.player a:hover {
+  color: var(--papaya-whip);
 }
 .player-data {
   background-color: var(--brick-red);
@@ -115,6 +137,7 @@
   color: var(--papaya-whip);
 }
 .app-content {
+  background-color: var(--steel-blue);
   padding: 5px;
 }
 .player-avatar {

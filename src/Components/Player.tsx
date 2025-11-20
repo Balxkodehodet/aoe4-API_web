@@ -8,7 +8,7 @@ export default function Player() {
       "AppContext is undefined, make sure you are using AppProvider"
     );
   }
-  const { setData, setError, data, error, id, setId } = ctx;
+  const { setData, setError, data, error, id } = ctx;
   let url = ``;
   useEffect(() => {
     url = `https://aoe4world.com/api/v0/players/${id}`;
