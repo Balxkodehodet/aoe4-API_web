@@ -73,6 +73,15 @@ html {
   color: var(--papaya-whip);
   margin: 10px;
 }
+.comparePlayersForm {
+  width: 100%;
+}
+.playerone-and-playertwo {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  justify-content: center;
+}
 .playerForm button:hover {
   background-color: var(--steel-blue);
   cursor: pointer;
@@ -105,7 +114,7 @@ html {
 }
 .player {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   width: 600px;
   background-color: var(--molten-lava);
   margin-top: 10px;
