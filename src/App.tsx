@@ -11,10 +11,10 @@ function App() {
       "AppContext is undefined, make sure you are using AppProvider"
     );
   }
-  const { data, setData, error, setError, setId } = ctx;
+  const { data, setData, error, setError, id, setId, loading, setLoading } =
+    ctx;
   const [searchName, setSearchName] = useState<string>("all");
   const [page, setPage] = useState<number>(1);
-  const [loading, setLoading] = useState<boolean>(false);
   let url = ``;
   useEffect(() => {
     const fetchData = async () => {
@@ -52,8 +52,10 @@ function App() {
   }
   console.log(data);
 
-  function onClickId(profile_id: number) {
+  function onClickId(profile_id: number, playerData: any) {
     setId(profile_id);
+    let cachedProfileId = `players_id_${profile_id}`;
+    localStorage.setItem(cachedProfileId, JSON.stringify(playerData));
   }
   return (
     <main className="app-content">
@@ -116,7 +118,9 @@ function App() {
                   <b>Qm 1v1 Rating:</b>{" "}
                   {player.leaderboards?.qm_1v1?.rating ?? "N/A"}
                   <Link
-                    onClick={() => onClickId(player.profile_id)}
+                    onClick={() => {
+                      onClickId(player.profile_id, player);
+                    }}
                     to={`/player/${player.profile_id}`}
                   >
                     {" "}

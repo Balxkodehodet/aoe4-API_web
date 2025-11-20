@@ -1,5 +1,6 @@
 import { AppContext } from "./AppContext";
 import { useContext, useEffect } from "react";
+import { Link } from "react-router-dom";
 export default function Player() {
   const ctx = useContext(AppContext);
   if (!ctx) {
@@ -7,9 +8,10 @@ export default function Player() {
       "AppContext is undefined, make sure you are using AppProvider"
     );
   }
-  const { setData, setError, data, error, id } = ctx;
-  const url = `https://aoe4world.com/api/v0/players/${id}`;
+  const { setData, setError, data, error, id, setId } = ctx;
+  let url = ``;
   useEffect(() => {
+    url = `https://aoe4world.com/api/v0/players/${id}`;
     const fetchData = async () => {
       try {
         const response = await fetch(url);
@@ -21,7 +23,7 @@ export default function Player() {
       }
     };
     fetchData();
-  }, [url]);
+  }, [url, id]);
   console.log("Player component data:", data);
   return (
     <div>
@@ -38,7 +40,8 @@ export default function Player() {
             </a>
             {"\n"}- Qm 1v1 rank: {data?.modes?.qm_1v1?.rank} {"\n"}- Qm 1v1
             rating: {data?.modes?.qm_1v1?.rating}
-            {"\n"}- Civilization: {""}
+            {"\n"} <h2>Top Civilizations:</h2>
+            {"\n"}
             {data?.modes?.qm_1v1?.civilizations?.map(
               (civ: {
                 civilization: string;
@@ -46,13 +49,14 @@ export default function Player() {
                 win_rate: string;
               }) => {
                 return (
+                  "- Civilization: " +
                   civ?.civilization +
                   "\n- Pick rate: " +
                   civ?.pick_rate +
                   "%" +
                   "\n- Win rate: " +
                   civ?.win_rate +
-                  "%"
+                  "%\n"
                 );
               }
             )}{" "}
@@ -64,6 +68,11 @@ export default function Player() {
               .replace("T", " Time: ")
               .replace("Z", "")}
           </pre>
+          <Link to={`/last-ten-games/${id}`}>
+            <p>
+              <b>Click to see last 10 games played</b>
+            </p>
+          </Link>
         </div>
       ) : (
         <p>Loading...</p>

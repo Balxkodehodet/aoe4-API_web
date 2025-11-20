@@ -5,6 +5,8 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Layout from "./Components/Layout.tsx";
 import { AppProvider } from "./Components/AppContext.tsx";
 import Player from "./Components/Player.tsx";
+import LastTenGames from "./Components/LastTenGames.tsx";
+import About from "./Components/About.tsx";
 
 const router = createBrowserRouter(
   [
@@ -14,6 +16,8 @@ const router = createBrowserRouter(
       children: [
         { index: true, element: <App /> },
         { path: "player/:id", element: <Player /> },
+        { path: "last-ten-games/:id", element: <LastTenGames /> },
+        { path: "about", element: <About /> },
       ],
     },
   ],
