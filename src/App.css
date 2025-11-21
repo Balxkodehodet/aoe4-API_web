@@ -73,7 +73,30 @@ html {
   color: var(--papaya-whip);
   margin: 10px;
 }
+.compareplayer1 {
+  width: 500px;
+}
+.winner {
+  width: 16px;
+}
+.comparisonResults {
+  display: flex;
+  background-color: var(--deep-space-blue);
+  color: var(--papaya-whip);
+  padding: 10px;
+  border-radius: 8px;
+  flex-direction: row;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
 .comparePlayersForm {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
   width: 100%;
 }
 .playerone-and-playertwo {

@@ -8,6 +8,7 @@ import Player from "./Components/Player.tsx";
 import LastTenGames from "./Components/LastTenGames.tsx";
 import About from "./Components/About.tsx";
 import ComparePlayers from "./Components/ComparePlayers.tsx";
+import CompareTwoPlayers from "./Components/CompareTwoPlayers.tsx";
 
 const router = createBrowserRouter(
   [
@@ -20,6 +21,10 @@ const router = createBrowserRouter(
         { path: "last-ten-games/:id", element: <LastTenGames /> },
         { path: "about", element: <About /> },
         { path: "compare-players", element: <ComparePlayers /> },
+        {
+          path: "compare-two-players/:id/vs/:id2",
+          element: <CompareTwoPlayers />,
+        },
       ],
     },
   ],

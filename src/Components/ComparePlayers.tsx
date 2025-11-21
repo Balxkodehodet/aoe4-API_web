@@ -1,4 +1,4 @@
-//import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { AppContext } from "./AppContext";
 import { useContext, useEffect, useState } from "react";
 import "../App.css";
@@ -10,17 +10,33 @@ export default function ComparePlayers() {
       "AppContext is undefined, make sure you are using AppProvider"
     );
   }
-  const { setData, setError, data, error, id, setId, loading, setLoading } =
-    ctx;
+  const {
+    setData,
+    setError,
+    data,
+    error,
+    id,
+    setId,
+    loading,
+    setLoading,
+    compareData,
+    compareData2,
+    setCompareData,
+    setCompareData2,
+    unique,
+    setUnique,
+    unique2,
+    setUnique2,
+    player,
+    setPlayer,
+    player2,
+    setPlayer2,
+  } = ctx;
   // Component state to track if player searches have been made
   const [playerOne, setPlayerOne] = useState<boolean>(false);
   const [playerTwo, setPlayerTwo] = useState<boolean>(false);
   const [searchNamePlayerOne, setSearchNamePlayerOne] = useState<string>("");
   const [searchNamePlayerTwo, setSearchNamePlayerTwo] = useState<string>("");
-  const [compareData, setCompareData] = useState<any>(null);
-  const [compareData2, setCompareData2] = useState<any>(null);
-  const [unique, setUnique] = useState<string>("");
-  const [unique2, setUnique2] = useState<string>("");
   // Handlers for player 1 search submissions
   function playerOneSearch(e: any) {
     e.preventDefault();
@@ -66,16 +82,21 @@ export default function ComparePlayers() {
     fetchCompareData();
   }, [searchNamePlayerTwo]);
 
-  function onPlayerSubmit(e: any) {
+  function onPlayerSubmit1(e: any) {
     e.preventDefault();
-    playerTwoSearch(e);
     playerOneSearch(e);
     const form = e.target;
     const player1 = form.player1.value;
-    const player2 = form.player2.value;
     setSearchNamePlayerOne(player1);
+    console.log("Compare Player 1 form submitted");
+  }
+  function onPlayerSubmit2(e: any) {
+    e.preventDefault();
+    playerTwoSearch(e);
+    const form = e.target;
+    const player2 = form.player2.value;
     setSearchNamePlayerTwo(player2);
-    console.log("Compare Players form submitted");
+    console.log("Compare Player 2 form submitted");
   }
 
   return (
@@ -83,12 +104,14 @@ export default function ComparePlayers() {
       <div className="comparePlayersForm">
         <h2>Compare Players</h2>
         <p>This is where the Compare Players component will go.</p>
-        <form onSubmit={onPlayerSubmit}>
+        <form onSubmit={onPlayerSubmit1}>
           <label>
             Player 1:
             <input type="search" name="player1" />
             <button type="submit">Search Player 1</button>
           </label>
+        </form>
+        <form onSubmit={onPlayerSubmit2}>
           <label>
             Player 2:
             <input type="search" name="player2" />
@@ -100,11 +123,16 @@ export default function ComparePlayers() {
       {unique && unique2 && (
         <div className="compare-players-calculate-button">
           <br></br>
-          <h2>Both players selected for comparison:</h2>
+          <h2>
+            Both players {player.name} and {player2.name} selected for
+            comparison:
+          </h2>
           <br></br>
-          <button onClick={() => console.log("Compare players clicked")}>
-            Compare Players
-          </button>
+          <Link to={`/compare-two-players/${unique}/vs/${unique2}`}>
+            <button onClick={() => console.log("Compare players clicked")}>
+              Compare Players
+            </button>
+          </Link>
         </div>
       )}
       <div className="playerone-and-playertwo">
@@ -120,6 +148,8 @@ export default function ComparePlayers() {
                   <div
                     onClick={() => {
                       setUnique(player.profile_id);
+                      setPlayer(player);
+                      console.log("Player 1 selected:", player);
                     }}
                     style={
                       unique === player.profile_id
@@ -155,6 +185,7 @@ export default function ComparePlayers() {
                   <div
                     onClick={() => {
                       setUnique2(player.profile_id);
+                      setPlayer2(player);
                     }}
                     style={
                       unique2 === player.profile_id
