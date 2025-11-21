@@ -2,7 +2,7 @@
 import { AppContext } from "./AppContext";
 import { useContext, useEffect, useState } from "react";
 import "../App.css";
-
+import Checked from "../assets/check.png";
 export default function ComparePlayers() {
   const ctx = useContext(AppContext);
   if (!ctx) {
@@ -19,6 +19,8 @@ export default function ComparePlayers() {
   const [searchNamePlayerTwo, setSearchNamePlayerTwo] = useState<string>("");
   const [compareData, setCompareData] = useState<any>(null);
   const [compareData2, setCompareData2] = useState<any>(null);
+  const [unique, setUnique] = useState<string>("");
+  const [unique2, setUnique2] = useState<string>("");
   // Handlers for player 1 search submissions
   function playerOneSearch(e: any) {
     e.preventDefault();
@@ -64,39 +66,47 @@ export default function ComparePlayers() {
     fetchCompareData();
   }, [searchNamePlayerTwo]);
 
+  function onPlayerSubmit(e: any) {
+    e.preventDefault();
+    playerTwoSearch(e);
+    playerOneSearch(e);
+    const form = e.target;
+    const player1 = form.player1.value;
+    const player2 = form.player2.value;
+    setSearchNamePlayerOne(player1);
+    setSearchNamePlayerTwo(player2);
+    console.log("Compare Players form submitted");
+  }
+
   return (
     <>
       <div className="comparePlayersForm">
         <h2>Compare Players</h2>
         <p>This is where the Compare Players component will go.</p>
-        <form>
+        <form onSubmit={onPlayerSubmit}>
           <label>
             Player 1:
-            <input
-              value={searchNamePlayerOne}
-              onChange={(e) => setSearchNamePlayerOne(e.target.value)}
-              type="search"
-              name="player1"
-            />
-            <button type="submit" onClick={(e) => playerOneSearch(e)}>
-              Search Player 1
-            </button>
+            <input type="search" name="player1" />
+            <button type="submit">Search Player 1</button>
           </label>
           <label>
             Player 2:
-            <input
-              value={searchNamePlayerTwo}
-              onChange={(e) => setSearchNamePlayerTwo(e.target.value)}
-              type="search"
-              name="player2"
-            />
-            <button type="submit" onClick={(e) => playerTwoSearch(e)}>
-              Search Player 2
-            </button>
+            <input type="search" name="player2" />
+            <button type="submit">Search Player 2</button>
           </label>
         </form>
       </div>
       {error && <p>{error}</p>}
+      {unique && unique2 && (
+        <div className="compare-players-calculate-button">
+          <br></br>
+          <h2>Both players selected for comparison:</h2>
+          <br></br>
+          <button onClick={() => console.log("Compare players clicked")}>
+            Compare Players
+          </button>
+        </div>
+      )}
       <div className="playerone-and-playertwo">
         <div className="playerone">
           {playerOne && compareData && (
@@ -107,8 +117,26 @@ export default function ComparePlayers() {
               )}
               {compareData?.players?.map((player: any) => {
                 return (
-                  <div key={player.profile_id} className="player">
+                  <div
+                    onClick={() => {
+                      setUnique(player.profile_id);
+                    }}
+                    style={
+                      unique === player.profile_id
+                        ? { backgroundColor: "var(--deep-space-blue)" }
+                        : { backgroundColor: "var(--molten-lava)" }
+                    }
+                    key={player.profile_id}
+                    className="playersecondary"
+                  >
                     <h3>{player.name}</h3>
+                    {unique === player.profile_id && (
+                      <img
+                        className="checkedimg"
+                        src={Checked}
+                        alt="check mark icon"
+                      />
+                    )}
                   </div>
                 );
               })}
@@ -124,8 +152,26 @@ export default function ComparePlayers() {
               )}
               {compareData2?.players?.map((player: any) => {
                 return (
-                  <div key={player.profile_id} className="player">
+                  <div
+                    onClick={() => {
+                      setUnique2(player.profile_id);
+                    }}
+                    style={
+                      unique2 === player.profile_id
+                        ? { backgroundColor: "var(--deep-space-blue)" }
+                        : { backgroundColor: "var(--molten-lava)" }
+                    }
+                    key={player.profile_id}
+                    className="playersecondary"
+                  >
                     <h3>{player.name}</h3>
+                    {unique2 === player.profile_id && (
+                      <img
+                        className="checkedimg"
+                        src={Checked}
+                        alt="check mark icon"
+                      />
+                    )}
                   </div>
                 );
               })}
