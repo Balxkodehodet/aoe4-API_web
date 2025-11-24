@@ -76,6 +76,9 @@ html {
 .compareplayer1 {
   width: 500px;
 }
+.compareplayer2 {
+  width: 500px;
+}
 .winner {
   width: 16px;
 }
@@ -87,9 +90,12 @@ html {
   border-radius: 8px;
   flex-direction: row;
   gap: 10px;
-  justify-content: center;
-  align-items: center;
+  /* justify-content: center;
+  align-items: center; */
   width: 100%;
+}
+.rejected {
+  width: 24px;
 }
 .comparePlayersForm {
   display: flex;

@@ -13,6 +13,9 @@ export default function About() {
       >
         Success icons created by hqrloveq - Flaticon
       </a>
+      <a href="https://www.flaticon.com/free-icons/reject" title="reject icons">
+        Reject icons created by Good Ware - Flaticon
+      </a>
     </div>
   );
 }
