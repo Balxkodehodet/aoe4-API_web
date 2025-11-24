@@ -1,6 +1,5 @@
-import { Link } from "react-router-dom";
 import { AppContext } from "./AppContext";
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import "../App.css";
 import Checked from "../assets/check.png";
 import Rejected from "../assets/decline.png";
@@ -11,26 +10,7 @@ export default function CompareTwoPlayers() {
       "AppContext is undefined, make sure you are using AppProvider"
     );
   }
-  const {
-    setError,
-    error,
-    id,
-    setId,
-    loading,
-    setLoading,
-    compareData,
-    compareData2,
-    setCompareData,
-    setCompareData2,
-    unique,
-    setUnique,
-    unique2,
-    setUnique2,
-    player,
-    setPlayer,
-    player2,
-    setPlayer2,
-  } = ctx;
+  const { player, player2 } = ctx;
   console.log("Player 1:", player);
   console.log("Player 2:", player2);
   return (

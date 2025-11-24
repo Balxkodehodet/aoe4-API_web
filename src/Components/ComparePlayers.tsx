@@ -11,12 +11,7 @@ export default function ComparePlayers() {
     );
   }
   const {
-    setData,
-    setError,
-    data,
     error,
-    id,
-    setId,
     loading,
     setLoading,
     compareData,
