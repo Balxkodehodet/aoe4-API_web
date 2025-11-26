@@ -14,7 +14,7 @@ export default function CompareData({
   vs,
   qmOrRm,
 }: Props) {
-  const key = `${qmOrRm}_${vs}`;
+  const key = qmOrRm === "qm" ? `${qmOrRm}_${vs}` : `${qmOrRm}_${vs}_elo`;
   const details = [
     "rank",
     "rating",
@@ -27,6 +27,9 @@ export default function CompareData({
   return (
     <>
       {details.map((detail) => {
+        if (detail === "losses_count" || detail === "rank") {
+          return <></>;
+        }
         return player?.leaderboards?.[key]?.[detail] ? (
           <div
             style={

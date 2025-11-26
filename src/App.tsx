@@ -15,10 +15,11 @@ function App() {
   const [searchName, setSearchName] = useState<string>("all");
   const [page, setPage] = useState<number>(1);
   let url = ``;
+  let cachedData = ``;
   useEffect(() => {
     const fetchData = async () => {
       url = `https://aoe4world.com/api/v0/players/search?query=${searchName}&page=${page}`;
-      let cachedData = `players_page_query_${searchName}_page_${page}`;
+      cachedData = `players_page_query_${searchName}_page_${page}`;
       let cachedDataStorage = localStorage.getItem(cachedData);
       setLoading(true);
       if (cachedDataStorage) {
@@ -40,9 +41,14 @@ function App() {
     fetchData();
   }, [url, page, searchName]);
 
-  function handleSubmit(e: React.FormEvent, searchName: string) {
+  function handleSubmit(e: any) {
     e.preventDefault();
-    setSearchName(searchName);
+    // Remove localstorage because its a new search name
+    localStorage.removeItem(cachedData);
+    const form = e.target;
+    const player = form.player.value;
+    setPage(1);
+    setSearchName(player);
     // The data fetching is handled by useEffect when searchName changes
   }
   if (data) {
@@ -62,26 +68,26 @@ function App() {
     <main className="app-content">
       <h2>Welcome</h2>
       <p>This a website dedicated to Age of empires 4, players and stats.</p>
-      <form
-        className="playerForm"
-        onSubmit={(e) => handleSubmit(e, searchName)}
-      >
+      <form className="playerForm" onSubmit={(e) => handleSubmit(e)}>
         <label>
           Search Player:
-          <input
-            type="text"
-            value={searchName}
-            onChange={(e) => setSearchName(e.target.value)}
-          />
+          <input type="search" name="player" />
         </label>
         <button type="submit">Search</button>
         {page && (
           <>
-            <p>Page: {page}</p>{" "}
+            <p>Page: {page}</p>
+
             <button
               onClick={(e) => {
                 e.preventDefault();
-                setPage(() => page - 1);
+                setPage(() => {
+                  if (data?.total_count < 50) {
+                    return page;
+                  } else {
+                    return page - 1;
+                  }
+                });
               }}
               type="button"
             >
@@ -90,7 +96,13 @@ function App() {
             <button
               onClick={(e) => {
                 e.preventDefault();
-                setPage(() => page + 1);
+                setPage(() => {
+                  if (data?.total_count < 50) {
+                    return page;
+                  } else {
+                    return page + 1;
+                  }
+                });
               }}
               type="button"
             >
