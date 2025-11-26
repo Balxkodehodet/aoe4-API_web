@@ -28,52 +28,102 @@ export default function CompareData({
     <>
       {details.map((detail) => {
         if (detail === "losses_count" || detail === "rank") {
-          return <></>;
-        }
-        return player?.leaderboards?.[key]?.[detail] ? (
-          <div
-            style={
-              player?.leaderboards?.[key]?.[detail] <=
+          return player?.leaderboards?.[key]?.[detail] ? (
+            <div
+              style={
+                player?.leaderboards?.[key]?.[detail] <=
+                  player2?.leaderboards?.[key]?.[detail] ||
+                player2?.leaderboards?.[key]?.[detail] === undefined ||
+                player2?.leaderboards?.[key]?.[detail] === null
+                  ? { color: "green" }
+                  : { color: "red" }
+              }
+            >
+              <strong>
+                {qmOrRm} {vs} {detail}: {player?.leaderboards?.[key]?.[detail]}
+              </strong>
+              {player?.leaderboards?.[key]?.[detail] <=
                 player2?.leaderboards?.[key]?.[detail] ||
               player2?.leaderboards?.[key]?.[detail] === undefined ||
-              player2?.leaderboards?.[key]?.[detail] == null
-                ? { color: "green" }
-                : { color: "red" }
-            }
-          >
-            <strong>
-              {qmOrRm} {vs} {detail}: {player?.leaderboards?.[key]?.[detail]}
-            </strong>
-            {player?.leaderboards?.[key]?.[detail] <=
-              player2?.leaderboards?.[key]?.[detail] ||
-            player2?.leaderboards?.[key]?.[detail] === undefined ||
-            player2?.leaderboards?.[key]?.[detail] === null ? (
-              <>
-                - Winner
-                <img
-                  className="winner"
-                  src={Checked}
-                  alt="a checked or success symbol"
-                />
-              </>
-            ) : (
-              <>
-                {" "}
-                - Loser{" "}
-                <img src={Rejected} alt="a decline or rejection cross symbol" />
-              </>
-            )}
-          </div>
-        ) : (
-          <div style={{ color: "red" }}>
-            No {qmOrRm} {vs} {detail} Data
-            <img
-              className="rejected"
-              src={Rejected}
-              alt="a decline or rejection symbol"
-            />
-          </div>
-        );
+              player2?.leaderboards?.[key]?.[detail] === null ? (
+                <>
+                  - Winner
+                  <img
+                    className="winner"
+                    src={Checked}
+                    alt="a checked or success symbol"
+                  />
+                </>
+              ) : (
+                <>
+                  {" "}
+                  - Loser{" "}
+                  <img
+                    src={Rejected}
+                    alt="a decline or rejection cross symbol"
+                  />
+                </>
+              )}
+            </div>
+          ) : (
+            <div style={{ color: "red" }}>
+              No {qmOrRm} {vs} {detail} Data
+              <img
+                className="rejected"
+                src={Rejected}
+                alt="a decline or rejection symbol"
+              />
+            </div>
+          );
+        } else {
+          return player?.leaderboards?.[key]?.[detail] ? (
+            <div
+              style={
+                player?.leaderboards?.[key]?.[detail] >=
+                  player2?.leaderboards?.[key]?.[detail] ||
+                player2?.leaderboards?.[key]?.[detail] === undefined ||
+                player2?.leaderboards?.[key]?.[detail] == null
+                  ? { color: "green" }
+                  : { color: "red" }
+              }
+            >
+              <strong>
+                {qmOrRm} {vs} {detail}: {player?.leaderboards?.[key]?.[detail]}
+              </strong>
+              {player?.leaderboards?.[key]?.[detail] >=
+                player2?.leaderboards?.[key]?.[detail] ||
+              player2?.leaderboards?.[key]?.[detail] === undefined ||
+              player2?.leaderboards?.[key]?.[detail] === null ? (
+                <>
+                  - Winner
+                  <img
+                    className="winner"
+                    src={Checked}
+                    alt="a checked or success symbol"
+                  />
+                </>
+              ) : (
+                <>
+                  {" "}
+                  - Loser{" "}
+                  <img
+                    src={Rejected}
+                    alt="a decline or rejection cross symbol"
+                  />
+                </>
+              )}
+            </div>
+          ) : (
+            <div style={{ color: "red" }}>
+              No {qmOrRm} {vs} {detail} Data
+              <img
+                className="rejected"
+                src={Rejected}
+                alt="a decline or rejection symbol"
+              />
+            </div>
+          );
+        }
       })}
     </>
   );
