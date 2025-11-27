@@ -24,6 +24,10 @@ type AppContextType = {
   setPlayer: React.Dispatch<React.SetStateAction<PlayerData | null>>;
   player2: PlayerData | null;
   setPlayer2: React.Dispatch<React.SetStateAction<PlayerData | null>>;
+  score: number;
+  setScore: React.Dispatch<React.SetStateAction<number>>;
+  score2: number;
+  setScore2: React.Dispatch<React.SetStateAction<number>>;
 };
 
 export const AppContext = createContext<AppContextType | undefined>(undefined);
@@ -40,6 +44,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const [unique2, setUnique2] = useState<string>("");
   const [player, setPlayer] = useState<any>(null);
   const [player2, setPlayer2] = useState<any>(null);
+  const [score, setScore] = useState<number>(0);
+  const [score2, setScore2] = useState<number>(0);
   return (
     <AppContext.Provider
       value={{
@@ -65,6 +71,10 @@ export function AppProvider({ children }: { children: ReactNode }) {
         setPlayer,
         player2,
         setPlayer2,
+        score,
+        setScore,
+        score2,
+        setScore2,
       }}
     >
       {children}

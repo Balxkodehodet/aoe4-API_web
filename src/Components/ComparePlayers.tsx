@@ -98,7 +98,7 @@ export default function ComparePlayers() {
     <>
       <div className="comparePlayersForm">
         <h2>Compare Players</h2>
-        <p>This is where the Compare Players component will go.</p>
+        <p></p>
         <form onSubmit={onPlayerSubmit1}>
           <label>
             Player 1:

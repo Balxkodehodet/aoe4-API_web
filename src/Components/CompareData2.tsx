@@ -9,7 +9,7 @@ type Props = {
   vs: string;
   qmOrRm: string;
 };
-export default function CompareData({
+export default function CompareData2({
   player,
   player2,
   Checked,
@@ -23,7 +23,7 @@ export default function CompareData({
       "AppContext is undefined, make sure you are using AppProvider"
     );
   }
-  const { setScore } = ctx;
+  const { setScore2 } = ctx;
   // If key is Qm (Quickmatch) then keep the standard if its something else (rm only option)
   // then add "elo" at the end of the query to fetch the right data.
   const key = qmOrRm === "qm" ? `${qmOrRm}_${vs}` : `${qmOrRm}_${vs}_elo`;
@@ -36,6 +36,7 @@ export default function CompareData({
     "losses_count",
     "streak",
   ];
+
   useEffect(() => {
     details.map((detail) => {
       if (detail === "losses_count" || detail === "rank") {
@@ -43,14 +44,14 @@ export default function CompareData({
           player2?.leaderboards?.[key]?.[detail] ||
         player2?.leaderboards?.[key]?.[detail] === undefined ||
         player2?.leaderboards?.[key]?.[detail] === null
-          ? setScore((prev) => prev + 1)
+          ? setScore2((prev) => prev + 1)
           : 0;
       } else {
         player?.leaderboards?.[key]?.[detail] >=
           player2?.leaderboards?.[key]?.[detail] ||
         player2?.leaderboards?.[key]?.[detail] === undefined ||
         player2?.leaderboards?.[key]?.[detail] === null
-          ? setScore((prev) => prev + 1)
+          ? setScore2((prev) => prev + 1)
           : 0;
       }
     });
