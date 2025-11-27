@@ -151,6 +151,38 @@ html {
   border-radius: 8px;
   color: var(--papaya-whip);
 }
+.modal {
+  background-color: yellowgreen;
+  position: absolute;
+  top: 300px;
+  left: 350px;
+  padding: 20px;
+  border-radius: 10px;
+  animation: movement 1s linear 2;
+}
+@keyframes movement {
+  0% {
+    left: 0px;
+  }
+  50% {
+    left: 850px;
+  }
+  90% {
+    left: 300px;
+  }
+  93% {
+    left: 370px;
+  }
+  95% {
+    left: 330px;
+  }
+  97% {
+    left: 360px;
+  }
+  100% {
+    left: 350px;
+  }
+}
 .playersecondary {
   display: flex;
   flex-direction: row;

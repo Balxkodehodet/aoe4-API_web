@@ -23,7 +23,7 @@ export default function CompareTwoPlayers() {
           <h1>Comparison Results:</h1>
           <p>Player 1 total score: {score}</p>
           <p>Player 2 total score: {score2}</p>
-          <h2>
+          <h2 className="modal">
             {score > score2
               ? `Player 1: ${player?.name} won!!!`
               : `Player 2: ${player2?.name} Won!!!`}
