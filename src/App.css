@@ -158,7 +158,7 @@ html {
   left: 350px;
   padding: 20px;
   border-radius: 10px;
-  animation: movement 1s linear 2;
+  animation: movement 1s linear 1;
 }
 @keyframes movement {
   0% {
